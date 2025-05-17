@@ -10,9 +10,10 @@ import {
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthService } from './auth.service';
-import { Public, ResponseMessage } from '@/decorator/customize';
+import { Public, ResponseMessage, User } from '@/decorator/customize';
 import { LocalAuthGuard } from './auth.guard';
 import { RegisterUserDto } from '@/users/dto/create-user.dto';
+import { IUser } from '@/users/user.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -49,5 +50,22 @@ export class AuthController {
       if (err) console.log(err);
       return res.redirect('/');
     });
+  }
+
+  @ResponseMessage('Get user account')
+  @Get('/account')
+  handleGetAccount(@User() user: IUser) {
+    return { user };
+  }
+
+  @Public()
+  @ResponseMessage('Refresh token')
+  @Get('/refresh-token')
+  handleRefreshToken(
+    @Req() req: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const refreshToken = req.cookies['refreshToken'];
+    return this.authService.refreshToken(refreshToken, response);
   }
 }

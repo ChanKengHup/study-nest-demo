@@ -200,4 +200,8 @@ export class UsersService implements OnModuleInit {
   checkPassword(hash: string, plain: string) {
     return compareSync(hash, plain);
   }
+
+  findUserByRefreshToken(refreshToken: string) {
+    return this.userModel.findOne({ refreshToken });
+  }
 }
