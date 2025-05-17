@@ -189,6 +189,10 @@ export class UsersService implements OnModuleInit {
     });
   }
 
+  async updateUserToken(userId: string, refreshToken: string) {
+    return await this.userModel.updateOne({ _id: userId }, { refreshToken });
+  }
+
   isValidPassword(password: string, hash: string) {
     return compareSync(password, hash);
   }

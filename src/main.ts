@@ -45,13 +45,15 @@ async function bootstrap() {
       resave: true,
       saveUninitialized: false,
       cookie: {
-        maxAge: ms(configService.get<string>('EXPRESS_SESSION_COOKIE')),
+        maxAge: ms(configService.get<string>('EXPRESS_SESSION_COOKIE')) / 1000,
       },
       store: MongoStore.create({
         mongoUrl: configService.get<string>('MONGODB_URI'),
       }),
     }),
   );
+
+  app.use(cookieParser());
 
   app.setGlobalPrefix('api');
   app.enableVersioning({

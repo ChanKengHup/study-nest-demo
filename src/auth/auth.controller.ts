@@ -25,10 +25,14 @@ export class AuthController {
   }
 
   @Public()
+  @ResponseMessage('User logged in successfully')
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async handleLoginStateless(@Req() req) {
-    return this.authService.login(req.user);
+  async handleLogin(
+    @Req() req,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return this.authService.login(req.user, response);
   }
 
   @Public()
