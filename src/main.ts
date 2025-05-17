@@ -10,6 +10,7 @@ import ms from 'ms';
 import passport from 'passport';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { TransformInterceptor } from './core/transform.interceptor';
+import { VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -51,6 +52,12 @@ async function bootstrap() {
       }),
     }),
   );
+
+  app.setGlobalPrefix('api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: ['1', '2'],
+  });
 
   //config passport
   app.use(passport.initialize());
