@@ -68,8 +68,8 @@ export class UsersService implements OnModuleInit {
     queryString: string,
   ) {
     const { filter, sort, population } = aqp(queryString);
-    delete filter.page;
-    delete filter.limit;
+    delete filter.current;
+    delete filter.pageSize;
 
     const offset = (+currentPage - 1) * +limit;
     const defaultLimit = +limit ? +limit : 10;

@@ -27,8 +27,8 @@ export class UsersController {
   @Get('pagination')
   @ResponseMessage('Get all users with pagination')
   findAllWithPagination(
-    @Query('page') currentPage: string,
-    @Query('limit') limit: string,
+    @Query('current') currentPage: string,
+    @Query('pageSize') limit: string,
     @Query() queryString: string,
   ) {
     return this.usersService.findAllWithPagination(
