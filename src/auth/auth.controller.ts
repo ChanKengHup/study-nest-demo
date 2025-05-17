@@ -43,13 +43,10 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  @Post('logout')
-  logout(@Req() req: Request, @Res() res: Response) {
-    /* destroys user session */
-    req.session.destroy(function (err) {
-      if (err) console.log(err);
-      return res.redirect('/');
-    });
+  @ResponseMessage('Logout successfully')
+  @Post('/logout')
+  logout(@User() user: IUser, @Res({ passthrough: true }) response: Response) {
+    return this.authService.logout(user, response);
   }
 
   @ResponseMessage('Get user account')
