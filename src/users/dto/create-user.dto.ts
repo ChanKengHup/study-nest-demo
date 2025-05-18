@@ -14,6 +14,8 @@ export class Company {
 
   @IsNotEmpty()
   name: string;
+
+  logo: string;
 }
 
 export class CreateUserDto {
