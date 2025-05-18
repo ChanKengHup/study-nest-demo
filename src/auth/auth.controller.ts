@@ -57,7 +57,7 @@ export class AuthController {
 
   @Public()
   @ResponseMessage('Refresh token')
-  @Get('/refresh-token')
+  @Get('/refresh')
   handleRefreshToken(
     @Req() req: Request,
     @Res({ passthrough: true }) response: Response,
